@@ -45,3 +45,10 @@ preload_app!
 
 # Allow puma to be restarted by `rails restart` command.
 # plugin :tmp_restart
+
+# Bind the server to “url”. “tcp://”, “unix://” and “ssl://” are the only
+# accepted protocols.
+# The default is “tcp://0.0.0.0:9292”.
+if ENV['RAILS_ENV'] == 'production'
+  bind 'unix:///tmp/nginx.socket'
+end
