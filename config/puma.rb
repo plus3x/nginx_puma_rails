@@ -50,5 +50,9 @@ preload_app!
 # accepted protocols.
 # The default is “tcp://0.0.0.0:9292”.
 if ENV['RAILS_ENV'] == 'production'
-  bind 'unix:/tmp/nginx.socket'
+  bind 'unix:///tmp/nginx.socket'
+
+  on_worker_fork do
+    FileUtils.touch('/tmp/app-initialized')
+  end
 end
