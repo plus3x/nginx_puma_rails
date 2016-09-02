@@ -14,6 +14,5 @@ class GdsController < ApplicationController
     sleep 0.432 # rates_application
     sleep 0.005 # nested_tickets_building
     sleep 0.001 # tickets_compression
-    sleep 3.541 # full_search
   end
 end
