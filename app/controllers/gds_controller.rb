@@ -8,13 +8,13 @@ class GdsController < ApplicationController
     # tickets_compression - 0.0007
     # full_search - 3.5408
 
-    # sleep 2.915 # search_request
-    # sleep 0.000 # split_ticketing
-    # sleep 0.098 # bundles_merging
-    # sleep 0.432 # rates_application
-    # sleep 0.005 # nested_tickets_building
-    # sleep 0.001 # tickets_compression
+    sleep 15 # search_request
 
-    10_000_000.times { 569123 ** 5 }
+    # split_ticketing
+    # bundles_merging
+    # rates_application
+    # nested_tickets_building
+    # tickets_compression
+    3_000_000.times { 5691 ** 5 } # 2.4178 sec
   end
 end
