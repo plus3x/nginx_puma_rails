@@ -7,10 +7,6 @@
 threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }.to_i
 threads threads_count, threads_count
 
-# Specifies the `port` that Puma will listen on to receive requests, default is 3000.
-#
-port ENV.fetch('PORT') { 3000 }
-
 # Specifies the `environment` that Puma will run in.
 #
 environment ENV.fetch('RAILS_ENV') { 'development' }
@@ -21,7 +17,7 @@ environment ENV.fetch('RAILS_ENV') { 'development' }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-# workers ENV.fetch('WEB_CONCURRENCY') { 2 }
+workers ENV.fetch('WEB_CONCURRENCY') { 0 }
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
@@ -39,9 +35,9 @@ preload_app!
 # or connections that may have been created at application boot, Ruby
 # cannot share connections between processes.
 #
-# on_worker_boot do
-#   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
-# end
+on_worker_boot do
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+end
 
 # Allow puma to be restarted by `rails restart` command.
 # plugin :tmp_restart
@@ -49,10 +45,16 @@ preload_app!
 # Bind the server to “url”. “tcp://”, “unix://” and “ssl://” are the only
 # accepted protocols.
 # The default is “tcp://0.0.0.0:9292”.
-if ENV['RAILS_ENV'] == 'production'
+# Here are nginx-buildpack requirements:
+# https://github.com/ryandotsmith/nginx-buildpack#requirements
+if ENV['RACK_ENV'] == 'production'
   bind 'unix:///tmp/nginx.socket'
 
   on_worker_fork do
     FileUtils.touch('/tmp/app-initialized')
   end
+else
+  # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
+  #
+  port ENV.fetch('PORT') { 3000 }
 end
