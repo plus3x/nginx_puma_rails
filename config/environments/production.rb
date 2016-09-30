@@ -83,4 +83,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Here are nginx-buildpack requirements:
+  # https://github.com/ryandotsmith/nginx-buildpack#requirements
+  config.after_initialize do
+    FileUtils.touch '/tmp/app-initialized'
+  end
 end
