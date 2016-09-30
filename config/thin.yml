@@ -1,4 +1,4 @@
 ---
 environment: "$RAILS_ENV"
 servers: 4
-socket: /tmp/nginx.socket"
+socket: /tmp/thin.sock
