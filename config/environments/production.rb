@@ -86,6 +86,7 @@ Rails.application.configure do
 
   # Here are nginx-buildpack requirements:
   # https://github.com/ryandotsmith/nginx-buildpack#requirements
+  # https://github.com/a-warner/hn-notifier/commit/9335f979dbc08fe09b13a1b67c5852c4ea44528f
   config.after_initialize do
     FileUtils.touch '/tmp/app-initialized'
   end
