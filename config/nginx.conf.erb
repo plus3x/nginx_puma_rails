@@ -32,6 +32,8 @@ http {
   client_body_timeout 5;
 
   upstream backend {
+    server unix:/tmp/thin.sock fail_timeout=0;
+
     server unix:/tmp/thin.0.sock;
     server unix:/tmp/thin.1.sock;
     server unix:/tmp/thin.2.sock;
