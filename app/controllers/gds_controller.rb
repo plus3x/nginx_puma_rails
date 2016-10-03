@@ -8,8 +8,8 @@ class GdsController < ApplicationController
     # tickets_compression - 0.0007
     # full_search - 3.5408
 
-    EventMachine.defer do
-      sleep 15 # search_request
+    EventMachine.add_timer(15) do
+      #sleep 15 # search_request
       3_000_000.times { 5691 ** 5 } # 2.4178 sec
 
       request.env['async.callback'].call response
