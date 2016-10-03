@@ -8,13 +8,18 @@ class GdsController < ApplicationController
     # tickets_compression - 0.0007
     # full_search - 3.5408
 
-    sleep 15 # search_request
+    EventMachine.defer do
+      sleep 15 # search_request
+      3_000_000.times { 5691 ** 5 } # 2.4178 sec
+
+      request.env['async.callback'].call response
+    end
 
     # split_ticketing
     # bundles_merging
     # rates_application
     # nested_tickets_building
     # tickets_compression
-    3_000_000.times { 5691 ** 5 } # 2.4178 sec
+    throw :async
   end
 end
